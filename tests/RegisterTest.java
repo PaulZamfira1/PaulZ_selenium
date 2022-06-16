@@ -21,19 +21,33 @@ public class RegisterTest {
         registerPage = new RegisterPage(driver);
     }
     @Test
-    //(Smoke Test) If we can register using valid credentials
+    //(Smoke Test) Check if we can register using valid credentials
     public void canRegisterWithValidCredentials(){
         registerPage.RegisterAs("Male", "asd", "asdasd", "1", "1", "3", "apsitl1@mailnesia.com", "asd", "true", "123123", "123123");
         RegisterPage registerPage = new RegisterPage(driver);
         assertEquals(registerPage.getValidMessage(), "Your registration completed");
     }
     @Test
-    //(Negative Test) If we cannot register with an already existing email adress
+    //(Negative Test) Check if we cannot register with an already existing email adress
     public void cantRegisterWithAnAlreadyExistentEmail(){
         registerPage.RegisterAs("Male", "asd", "asdasd", "1", "1", "3", "apsitl1@mailnesia.com", "asd", "true", "123123", "123123");
         RegisterPage registerPage = new RegisterPage(driver);
         assertEquals(registerPage.geterrorMessage(), "The specified email already exists");
     }
+    @Test//(Negative Test) Check if we cannot register without specifying first name
+    public void cantRegisterWithoutFirstName(){
+        registerPage.RegisterAs("Male", "","asdasd", "1", "1", "3", "apsitl1@mailnesia.com", "asd", "true", "123123", "123123");
+        RegisterPage registerPage = new RegisterPage(driver);
+        assertEquals(registerPage.geterrorFirstNameMessage(), "First name is required.");
+    }
+    @Test//(Negative Test) Check if we cannot register if passwords don't match
+    public void cantRegisterIfPasswordsDontMatch(){
+        registerPage.RegisterAs("Male", "asd","asdasd", "1", "1", "3", "apsitl1@mailnesia.com", "asd", "true", "123123", "123123a");
+        RegisterPage registerPage = new RegisterPage(driver);
+        assertEquals(registerPage.geterrorWrongPassMessage(), "The password and confirmation password do not match.");
+    }
+
+
     @AfterEach
     public void tearDown(){
         driver.quit();

@@ -95,4 +95,17 @@ public class RegisterPage {
     public String geterrorMessage(){
         return errorMessage.getText();
     }
+    @FindBy(xpath = "//*[@id=\"FirstName-error\"]")
+    private WebElement errorFirstNameMessage;
+
+    public String geterrorFirstNameMessage() {
+        return errorFirstNameMessage.getText();
+    }
+
+    @FindBy(xpath = "//*[@id=\"ConfirmPassword-error\"]")
+    private WebElement errorWrongPassMessage;
+
+    public String geterrorWrongPassMessage() {
+        return errorWrongPassMessage.getText();
+    }
 }
